@@ -54,7 +54,7 @@ node {
         // Asigna la variable de entorno
         env.MY_VARIABLE = concatenatedValues
         sh '''
-        echo ${env.MY_VARIABLE}
+        echo $MY_VARIABLE
         '''
     }
 

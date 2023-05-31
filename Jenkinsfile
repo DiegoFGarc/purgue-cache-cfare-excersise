@@ -3,7 +3,6 @@ node {
     stage('validate_parameters') {
         def valuesText = params.urls
         def valuesList = valuesText.split("\n")
-        echo ${valueList}
         for (value in valuesList) {
             if (value.contains('ing') || value.contains('dev')) {
                 echo "The url value is valid!: ${value}"

@@ -1,24 +1,49 @@
 node {
     
     stage('validate_parameters') {
-        def valuesText = params.env_name
+        def valuesText = params.urls
         def valuesList = valuesText.split("\n")
         for (value in valuesList) {
             if (value.contains('ing') || value.contains('dev')) {
-                echo "The env_name value is valid!: ${value}"
+                echo "The url value is valid!: ${value}"
             } else {
-                error("The env_name parameter value is invalid for: ${value}. Must be 'ing' or 'dev'.")
+                error("The url parameter value is invalid for: ${value}. Must be 'ing' or 'dev'.")
             }
         }
     }
-    /*
+
+    stage('testing_credentials'){
+        withCredentials([string(credentialsId: "${token_cloudfare}", variable: 'SECRET')]) {
+            echo "Token de Cloudflare: ${env.token_cloudfare}"
+        }
+    }
+    
     stage('get_status') {
         sh '''
-        echo "***********Getting Status***********"
-        ansible-playbook template.yml --extra-vars="env_name=$env_name"
+        echo "***********Generating Script***********"
+        ansible-playbook template.yml --extra-vars="urls=$valuesList"
         '''
     }
+    
+    stage('cloudfare_api') {
+        /*def valuesText = params.urls
+        def valuesList = valuesText.split("\n")
+        def concatenatedValues = ""
 
+        for (value in valuesList) {
+            concatenatedValues += value.trim() + ","
+        }
+
+        // Delete last comma
+        concatenatedValues = concatenatedValues[0..-2]
+
+        // Assign the environment variable
+        env.MY_VARIABLE = concatenatedValues
+        */
+        sh 'bash requests.sh'
+    }
+
+    /*
     stage('validate_status') {
         sh '''
         echo "***********Validating Status***********"
@@ -37,25 +62,10 @@ node {
         def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
         env.BUILD_USER = build_user.userName
         echo "The username is: ${env.BUILD_USER}"
+
+        withCredentials([usernamePassword(credentialsId: 'my-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+
     }   
     */
-    stage('cloudfare_api') {
-        def valuesText = params.env_name
-        def valuesList = valuesText.split("\n")
-        def concatenatedValues = ""
-
-        for (value in valuesList) {
-            concatenatedValues += value.trim() + ","
-        }
-
-        // Elimina la última coma
-        concatenatedValues = concatenatedValues[0..-2]
-
-        // Asigna la variable de entorno
-        env.MY_VARIABLE = concatenatedValues
-        sh '''
-        echo $MY_VARIABLE
-        '''
-    }
 
 }

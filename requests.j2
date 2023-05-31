@@ -1,3 +1,9 @@
+#!/bin/bash
+
+zone_id="{{ zone_id }}"
+URLS="{{ urls }}"
+TOKEN_CLOUDFLARE_API={{ token_cloudfare }}
+
 PurgeCache() {
     URLS=($MY_VARIABLE)
     for URL in "${URLS[@]}"

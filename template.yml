@@ -1,0 +1,10 @@
+- hosts: localhost
+  tasks:
+    - name: Request
+      template:
+        src: requests.j2
+        dest: requests.sh
+      tags: template
+      register: template_output
+    
+    - debug: var=template_output

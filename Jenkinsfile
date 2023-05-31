@@ -16,7 +16,7 @@ node {
         withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
             sh '''
             echo "***********Generating Script***********"
-            ansible-playbook template.yml --extra-vars="urls=$valuesList, token_cloudfare=$CLOUDFLARE_TOKEN"
+            ansible-playbook template.yml --extra-vars="urls=$valuesList, token_cloudfare=$CLOUDFLARE_TOKEN, zone_id=123test"
             '''
         }
     }

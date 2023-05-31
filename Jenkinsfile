@@ -12,17 +12,13 @@ node {
         }
     }
 
-    stage('testing_credentials'){
-        withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
-            sh 'echo "Token de Cloudflare: $CLOUDFLARE_TOKEN"'
-        }
-    }
-    
     stage('get_status') {
-        sh '''
-        echo "***********Generating Script***********"
-        ansible-playbook template.yml --extra-vars="urls=$valuesList"
-        '''
+        withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
+            sh '''
+            echo "***********Generating Script***********"
+            ansible-playbook template.yml --extra-vars="urls=$valuesList, token_cloudfare=$CLOUDFLARE_TOKEN"
+            '''
+        }
     }
     
     stage('cloudfare_api') {

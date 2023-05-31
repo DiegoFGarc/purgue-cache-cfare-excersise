@@ -13,8 +13,8 @@ node {
     }
 
     stage('testing_credentials'){
-        withCredentials([string(credentialsId: "${token_cloudfare}", variable: 'SECRET')]) {
-            echo "Token de Cloudflare: ${env.token_cloudfare}"
+        withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
+            sh 'echo "Token de Cloudflare: $CLOUDFLARE_TOKEN"'
         }
     }
     

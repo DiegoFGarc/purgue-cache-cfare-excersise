@@ -16,9 +16,20 @@ node {
         withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
             def valuesText = params.urls
             def valuesList = valuesText.split("\n")
+            def concatenatedValues = ""
+
+            for (value in valuesList) {
+                concatenatedValues += value.trim() + ","
+            }
+
+        // Delete last comma
+            concatenatedValues = concatenatedValues[0..-2]
+
+        // Assign the environment variable
+            env.MY_VARIABLE = concatenatedValues
             sh '''
             echo "***********Generating Script***********"
-            ansible-playbook template.yml --extra-vars="urls=$valuesList token_cloudfare=$CLOUDFLARE_TOKEN zone_id=123test"
+            ansible-playbook template.yml --extra-vars="urls=$MY_VARIABLE token_cloudfare=$CLOUDFLARE_TOKEN zone_id=123test"
             '''
         }
     }

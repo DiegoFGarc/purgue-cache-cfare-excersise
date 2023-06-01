@@ -56,8 +56,8 @@ node {
         sh 'bash requests.sh PurgeCache'
     }
 
-    /*
-    stage('validate_status') {
+    
+    /*stage('validate_status') {
         sh '''
         echo "***********Validating Status***********"
         . ./request.sh
@@ -68,7 +68,7 @@ node {
         } else {
             error("Status is not 200")
         }
-    }
+    }*/
 
     stage('send_notification') {
         echo "The variable env_name is: ${env.env_name} and this returns status code 200"
@@ -79,6 +79,5 @@ node {
         withCredentials([usernamePassword(credentialsId: 'my-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 
     }   
-    */
 
 }

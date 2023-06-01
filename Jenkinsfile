@@ -4,10 +4,10 @@ node {
         def valuesText = params.urls
         def valuesList = valuesText.split("\n")
         for (value in valuesList) {
-            if (value.contains('ing') || value.contains('dev')) {
+            if (value.contains('https://embed-env.cartfulsolutions.com') || value.contains('https')) {
                 echo "The url value is valid!: ${value}"
             } else {
-                error("The url parameter value is invalid for: ${value}. Must be 'ing' or 'dev'.")
+                error("The url parameter value is invalid for: ${value}. Must be 'https://embed-env.cartfulsolutions.com' or 'https'.")
             }
         }
     }

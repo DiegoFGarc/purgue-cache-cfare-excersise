@@ -76,9 +76,7 @@ node {
         def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
         env.BUILD_USER = build_user.userName
         echo "The username is: ${env.BUILD_USER}"
-
-        withCredentials([usernamePassword(credentialsId: 'my-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-
-    }   
+        echo "The urls are: ${params.urls}"
+    }
 
 }

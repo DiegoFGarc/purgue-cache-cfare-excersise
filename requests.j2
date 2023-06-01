@@ -2,10 +2,10 @@
 
 zone_id="{{ zone_id }}"
 MY_VARIABLE="{{ urls }}"
+IFS=',' read -ra URLS <<< "$MY_VARIABLE"
 TOKEN_CLOUDFLARE_API={{ token_cloudfare }}
 
 PurgeCache() {
-    URLS=($MY_VARIABLE)
     for URL in "${URLS[@]}"
     do
       echo "Purging Cloudflare cache for: $URL"
@@ -24,3 +24,4 @@ PurgeCache() {
       fi
     done
   }
+PurgeCache

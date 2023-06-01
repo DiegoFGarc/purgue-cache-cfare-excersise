@@ -11,6 +11,10 @@ node {
             }
         }
     }
+    stage('get_status') {
+        sh 'pwd'
+        sh 'ls'
+    }
 
     stage('get_status') {
         withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
@@ -49,7 +53,7 @@ node {
         // Assign the environment variable
         env.MY_VARIABLE = concatenatedValues
         */
-        sh 'bash requests.sh'
+        sh 'bash requests.sh PurgeCache'
     }
 
     /*

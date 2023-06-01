@@ -17,8 +17,10 @@ node {
     }
 
     stage('get_status') {
-        withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')],
-                        [string(credentialsId: 'cloudfare_zone_id', variable: 'CLOUDFLARE_ZONE_ID')]) {
+        withCredentials([
+            string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN'),
+            string(credentialsId: 'cloudfare_zone_id', variable: 'CLOUDFLARE_ZONE_ID')
+        ]){
             def valuesText = params.urls
             def valuesList = valuesText.split("\n")
             def concatenatedValues = ""

@@ -17,7 +17,8 @@ node {
     }
 
     stage('get_status') {
-        withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')]) {
+        withCredentials([string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN')],
+                        [string(credentialsId: 'cloudfare_zone_id', variable: 'CLOUDFLARE_ZONE_ID')]) {
             def valuesText = params.urls
             def valuesList = valuesText.split("\n")
             def concatenatedValues = ""
@@ -33,7 +34,7 @@ node {
             env.MY_VARIABLE = concatenatedValues
             sh '''
             echo "***********Generating Script***********"
-            ansible-playbook template.yml --extra-vars="urls=$MY_VARIABLE token_cloudfare=$CLOUDFLARE_TOKEN zone_id=123test"
+            ansible-playbook template.yml --extra-vars="urls=$MY_VARIABLE token_cloudfare=$CLOUDFLARE_TOKEN zone_id=$CLOUDFLARE_ZONE_ID"
             '''
         }
     }

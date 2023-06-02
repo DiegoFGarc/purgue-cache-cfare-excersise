@@ -42,20 +42,6 @@ node {
     }
     
     stage('cloudfare_api') {
-        /*def valuesText = params.urls
-        def valuesList = valuesText.split("\n")
-        def concatenatedValues = ""
-
-        for (value in valuesList) {
-            concatenatedValues += value.trim() + ","
-        }
-
-        // Delete last comma
-        concatenatedValues = concatenatedValues[0..-2]
-
-        // Assign the environment variable
-        env.MY_VARIABLE = concatenatedValues
-        */
         sh 'bash requests.sh PurgeCache'
     }
 

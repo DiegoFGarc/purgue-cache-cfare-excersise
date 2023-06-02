@@ -1,8 +1,8 @@
 #!/bin/bash
 
 zone_id="{{ zone_id }}"
-MY_VARIABLE="{{ urls }}"
-IFS=',' read -ra URLS <<< "$MY_VARIABLE"
+URLS_LIST="{{ urls }}"
+IFS=',' read -ra URLS <<< "$URLS_LIST"
 TOKEN_CLOUDFLARE_API={{ token_cloudfare }}
 
 PurgeCache() {

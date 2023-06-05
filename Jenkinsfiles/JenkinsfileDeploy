@@ -32,7 +32,7 @@ node {
     stage('validate_parameters') {
         def valuesText = params.urls
         def valuesList = valuesText.split("\n")
-        if ($ENVIRONMENT == "prod") {
+        if (${ENVIRONMENT} == "prod") {
                 env.SUBDOMAIN = "embed"
         } else {
                 env.SUBDOMAIN = "embed-env"

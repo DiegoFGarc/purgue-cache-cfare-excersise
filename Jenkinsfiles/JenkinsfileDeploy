@@ -8,6 +8,7 @@ node {
     env.SOURCE = "${GIT_TARGET_DIRECTORY_DEVOPS}/${GIT_CHECKOUT_PATH_DEVOPS}/templates/requests.j2"
     env.DEST = "${GIT_TARGET_DIRECTORY_DEVOPS}/requests.sh"
     env.ANSIBLE_SOURCE_PATH = "${GIT_TARGET_DIRECTORY_DEVOPS}/${GIT_CHECKOUT_PATH_DEVOPS}"
+    env.ENVIRONMENT = $ENV
 
     /*
     stage('checkout'){
@@ -31,11 +32,16 @@ node {
     stage('validate_parameters') {
         def valuesText = params.urls
         def valuesList = valuesText.split("\n")
+        if ($ENVIRONMENT == "prod") {
+                env.SUBDOMAIN = "embed"
+        } else {
+                env.SUBDOMAIN = "embed-env"
+        }
         for (value in valuesList) {
-            if (value.contains('https://embed-env.cartfulsolutions.com') && value.contains('https')) {
+            if (value.contains("https://${SUBDOMAIN}.cartfulsolutions.com") && value.contains('https')) {
                 echo "The url value is valid!: ${value}"
             } else {
-                error("The url parameter value is invalid for: ${value}. Must be 'https://embed-env.cartfulsolutions.com' or 'https'.")
+                error("The url parameter value is invalid for: ${value}. Must be 'https://${SUBDOMAIN}.cartfulsolutions.com' or 'https'.")
             }
         }
     }

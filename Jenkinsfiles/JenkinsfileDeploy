@@ -1,4 +1,27 @@
 node {
+
+    env.GIT_BRANCH_DEVOPS = 'main'
+    env.GIT_CHECKOUT_PATH_DEVOPS = 'cdn-purge-cache/ansible/'
+    env.GIT_TARGET_DIRECTORY_DEVOPS = '${WORKSPACE}/cdn-purge-cache/ansible/'
+    env.GIT_REPOSITORY_DEVOPS = 'https://github.com/DiegoFGarc/purgue-cache-cfare-excersise'
+    env.GIT_KEY = '68100f4c-d1f7-45ed-a2fd-4b3a2a3e4ba0'
+
+    stage('checkout'){
+        checkout([
+                    $class: "GitSCM",
+                    branches: [[name: "${GIT_BRANCH_DEVOPS}"]],
+                    extensions: [
+                    [$class: "SparseCheckoutPaths",
+                    sparseCheckoutPaths:[[$class:'SparseCheckoutPath', path: "${GIT_CHECKOUT_PATH_DEVOPS}"]]],
+                    [$class: "RelativeTargetDirectory",
+                    relativeTargetDir: "${GIT_TARGET_DIRECTORY_DEVOPS}"]
+                    ],
+                    userRemoteConfigs: [[
+                    url: "${GIT_REPOSITORY_DEVOPS}",
+                    credentialsId: "${GIT_KEY}"
+                    ]]
+                ])
+    }
     
     stage('validate_parameters') {
         def valuesText = params.urls
@@ -11,11 +34,7 @@ node {
             }
         }
     }
-    stage('get_status') {
-        sh 'pwd'
-        sh 'ls'
-    }
-
+    
     stage('get_status') {
         withCredentials([
             string(credentialsId: 'token_cloudfare', variable: 'CLOUDFLARE_TOKEN'),

@@ -12,7 +12,9 @@ node {
                 string(name: "ENV", value: "${ENV}")
             ], wait: true
 
-        if (purgeCacheJob.result == 'SUCCESS') {
+        def job_result = purgeCacheJob.getLastBuild().getResult()
+        
+        if (job_result == hudson.model.Result.SUCCESS) {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
             env.BUILD_USER = build_user.userName
             echo "${env.BUILD_USER} purged cache for the following development resources: \n ${params.urls}"

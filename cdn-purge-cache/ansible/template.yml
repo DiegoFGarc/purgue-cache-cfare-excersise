@@ -2,8 +2,8 @@
   tasks:
     - name: Request
       template:
-        src: {{ SOURCE }}
-        dest: {{ DEST }}
+        src: "{{ SOURCE }}"
+        dest: "{{ DEST }}"
       tags: template
       register: template_output
     

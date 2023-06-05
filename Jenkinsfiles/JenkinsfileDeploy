@@ -1,12 +1,12 @@
 node {
 
     env.GIT_BRANCH_DEVOPS = 'main'
-    env.GIT_TARGET_DIRECTORY_DEVOPS = '${WORKSPACE}'
+    env.GIT_TARGET_DIRECTORY_DEVOPS = "${WORKSPACE}"
     env.GIT_CHECKOUT_PATH_DEVOPS = 'cdn-purge-cache/ansible/'
     env.GIT_REPOSITORY_DEVOPS = 'https://github.com/DiegoFGarc/purgue-cache-cfare-excersise'
     env.GIT_KEY = '68100f4c-d1f7-45ed-a2fd-4b3a2a3e4ba0'
-    env.SOURCE = '${GIT_TARGET_DIRECTORY_DEVOPS}/${GIT_CHECKOUT_PATH_DEVOPS}/templates/requests.j2'
-    env.DEST = '${GIT_TARGET_DIRECTORY_DEVOPS}'
+    env.SOURCE = "${GIT_TARGET_DIRECTORY_DEVOPS}/${GIT_CHECKOUT_PATH_DEVOPS}/templates/requests.j2"
+    env.DEST = "${GIT_TARGET_DIRECTORY_DEVOPS}"
 
     /*
     stage('checkout'){

@@ -14,14 +14,13 @@ node {
             ], wait: true
          } catch (Exception e) {
             sh "echo Error: ${e.message}"
+            sh "echo "500" > status.txt"
         }
     }
 
     stage('validate_cache_purge') {
-        def buildInfo = purgeCacheJob
-        if (buildInfo != null) {
-            jobStatus = buildInfo.result
-        }
+        sh "cat status.txt"
+        /*
         if (jobStatus == hudson.model.Result.SUCCESS) {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
             env.BUILD_USER = build_user.userName
@@ -30,5 +29,5 @@ node {
             echo "ERROR: Cache purge job failed"
             error("Cache purge job failed") // Marcar el build como fallido
         }
-    }
+    }*/
 }

@@ -14,7 +14,7 @@ node {
             ], wait: true
          } catch (Exception e) {
             sh "echo Error: ${e.message}"
-            sh "echo "500" > status.txt"
+            sh "echo 500 > status.txt"
         }
     }
 

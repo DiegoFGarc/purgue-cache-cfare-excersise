@@ -7,13 +7,12 @@ node {
     }
 
     stage('flush_cache') {
-        options {
-            continueOnError true
-        }
-        def purgeCacheJob = build job: "${PURGE_CACHE_JOB}", parameters: [
+        catchError {
+            def purgeCacheJob = build job: "${PURGE_CACHE_JOB}", parameters: [
                 string(name: "urls", value: "${URLS}"),
                 string(name: "ENV", value: "${ENV}")
             ], wait: true
+        }
     }
 
     stage('validate_cache_purge') {

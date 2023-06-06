@@ -16,8 +16,8 @@ node {
     }
 
     stage('validate_cache_purge') {
-        def buildInfo = purgeCacheJob
         sh 'echo "${purgeCacheJob}"'
+        def buildInfo = purgeCacheJob
         if (buildInfo != null) {
             jobStatus = buildInfo.result
         }

@@ -15,7 +15,7 @@ node {
             //def jobResult = purgeCacheJob.result
             //sh 'echo "${jobResult}"'
          } catch (Exception e) {
-            sh 'echo "Error: ${e.message}"'
+            sh "echo Error: ${e.message}"
         }
     }
 

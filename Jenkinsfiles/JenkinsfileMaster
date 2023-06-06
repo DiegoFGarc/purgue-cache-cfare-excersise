@@ -7,6 +7,9 @@ node {
     }
 
     stage('flush_cache') {
+        options {
+            continueOnError true
+        }
         def purgeCacheJob = build job: "${PURGE_CACHE_JOB}", parameters: [
                 string(name: "urls", value: "${URLS}"),
                 string(name: "ENV", value: "${ENV}")
@@ -14,9 +17,6 @@ node {
     }
 
     stage('validate_cache_purge') {
-        options {
-            continueOnError true
-        }
         def buildInfo = buildInfo job: "${PURGE_CACHE_JOB}"
         if (buildInfo != null) {
             jobStatus = buildInfo.build.result

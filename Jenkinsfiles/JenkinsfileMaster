@@ -14,8 +14,9 @@ node {
     }
 
     stage('validate_cache_purge') {
-        def jobStatus = hudson.model.Result.FAILURE
-        // Obtener el estado del job
+        options {
+            continueOnError true
+        }
         def buildInfo = buildInfo job: "${PURGE_CACHE_JOB}"
         if (buildInfo != null) {
             jobStatus = buildInfo.build.result

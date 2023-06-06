@@ -12,9 +12,9 @@ node {
                 string(name: "urls", value: "${URLS}"),
                 string(name: "ENV", value: "${ENV}")
             ], wait: true
-            sh 'echo "${purgeCacheJob}"'
+            def jobResult = purgeCacheJob.result
+            sh 'echo "${jobResult}"'
         }
-        sh 'echo "Out of catch Error: ${purgeCacheJob}"'
     }
 
     stage('validate_cache_purge') {

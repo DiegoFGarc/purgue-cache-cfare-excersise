@@ -13,19 +13,20 @@ node {
             ], wait: true
     }
 
-    post {
-        success {
-            script {
-                def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-                env.BUILD_USER = build_user.userName
-                echo "${env.BUILD_USER} purged cache for the following development resources: \n ${params.urls}"
-            }
+    stage('validate_cache_purge') {
+        def jobStatus = hudson.model.Result.FAILURE
+        // Obtener el estado del job
+        def buildInfo = buildInfo job: "${PURGE_CACHE_JOB}"
+        if (buildInfo != null) {
+            jobStatus = buildInfo.build.result
         }
-        failure {
-            script {
-                echo "ERROR: Cache purge job failed"
-                error("Cache purge job failed") // Marcar el build como fallido
-            }
+        if (jobStatus == hudson.model.Result.SUCCESS) {
+            def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+            env.BUILD_USER = build_user.userName
+            echo "${env.BUILD_USER} purged cache for the following development resources: \n ${params.urls}"
+        } else {
+            echo "ERROR: Cache purge job failed"
+            error("Cache purge job failed") // Marcar el build como fallido
         }
     }
 }

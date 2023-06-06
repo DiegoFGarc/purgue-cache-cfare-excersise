@@ -8,13 +8,11 @@ node {
 
     stage('flush_cache') {
         try {
-            def purgeCacheJob = build job: "${PURGE_CACHE_JOB}", parameters: [
-                string(name: "urls", value: "${URLS}"),
-                string(name: "ENV", value: "${ENV}")
+            build job: "${PURGE_CACHE_JOB}", parameters: [
+            string(name: "urls", value: "${URLS}"),
+            string(name: "ENV", value: "${ENV}")
             ], wait: true
          } catch (Exception e) {
-            def jobResult = purgeCacheJob.result
-            sh "echo ${jobResult}"
             sh "echo Error: ${e.message}"
         }
     }

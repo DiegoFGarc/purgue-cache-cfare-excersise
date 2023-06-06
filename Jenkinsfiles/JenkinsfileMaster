@@ -28,6 +28,6 @@ node {
         } else {
             echo "ERROR: Cache purge job failed"
             error("Cache purge job failed") // Marcar el build como fallido
-        }
-    }*/
+        }*/
+    }
 }

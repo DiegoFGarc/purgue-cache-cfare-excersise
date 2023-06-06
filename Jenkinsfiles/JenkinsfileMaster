@@ -7,13 +7,22 @@ node {
     }
 
     stage('flush_cache') {
-        catchError {
+        try {
+    // code that might throw an exception
+    sh 'my-command-that-might-fail arg1 arg2'
+  try
+    // handling the exception
+    echo "Error: ${e.message}"
+  }
+        try {
             def purgeCacheJob = build job: "${PURGE_CACHE_JOB}", parameters: [
                 string(name: "urls", value: "${URLS}"),
                 string(name: "ENV", value: "${ENV}")
             ], wait: true
-            def jobResult = purgeCacheJob.result
-            sh 'echo "${jobResult}"'
+            //def jobResult = purgeCacheJob.result
+            //sh 'echo "${jobResult}"'
+         } catch (Exception e) {
+            echo "Error: ${e.message}"
         }
     }
 

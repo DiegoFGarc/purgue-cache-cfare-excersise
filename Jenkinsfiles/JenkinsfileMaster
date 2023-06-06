@@ -16,9 +16,10 @@ node {
     }
 
     stage('validate_cache_purge') {
-        def buildInfo = buildInfo job: "${PURGE_CACHE_JOB}"
+        def buildInfo = purgeCacheJob
+        sh 'echo ${purgeCacheJob}'
         if (buildInfo != null) {
-            jobStatus = buildInfo.build.result
+            jobStatus = buildInfo.result
         }
         if (jobStatus == hudson.model.Result.SUCCESS) {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')

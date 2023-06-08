@@ -3,7 +3,6 @@ node {
     stage('init') {
         env.ENVIRONMENT = params.ENV
         env.PURGE_CACHE_JOB = "purgue-cloudfare-cache"
-        env.STATUS = ""
         def URLS = params.urls
     }
 

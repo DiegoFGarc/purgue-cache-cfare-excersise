@@ -23,12 +23,11 @@ node {
         if (status == 200) {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
             env.BUILD_USER = build_user.userName
-            slackSend color: 'good', message: "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
-            //echo "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
+            //slackSend color: 'good', message: "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
+            echo "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
         } else {
-            slackSend color: 'danger', message: "Execution ${BUILD_NUMBER} status - The resources purged by Diego Garcia :flecha_hacia_arriba: failed: REASON OF FAILURE :mastil_con_bandera_triangular:"
-            //echo "ERROR: Cache purge job failed"
-            //error("Cache purge job failed")
+            //slackSend color: 'danger', message: "Execution ${BUILD_NUMBER} status - The resources purged by Diego Garcia :flecha_hacia_arriba: failed: REASON OF FAILURE :mastil_con_bandera_triangular:"
+            echo "Execution ${BUILD_NUMBER} status - The resources purged by Diego Garcia :flecha_hacia_arriba: failed: REASON OF FAILURE :mastil_con_bandera_triangular:"
         }
     }
 }

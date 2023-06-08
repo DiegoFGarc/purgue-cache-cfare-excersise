@@ -12,16 +12,16 @@ node {
             string(name: "urls", value: "${URLS}"),
             string(name: "ENV", value: "${ENV}")
             ], wait: true
-            sh "echo 200 > status.txt"
+            def STATUS == 200
          } catch (Exception e) {
             sh "echo Error: ${e.message}"
-            sh "echo 500 > status.txt"
+            def STATUS == 500
         }
     }
 
     stage('validate_cache_purge') {
-        def fileContent = readFile('status.txt').trim()
-        if (fileContent == '200') {
+        
+        if (STATUS == '200') {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
             env.BUILD_USER = build_user.userName
             echo "${env.BUILD_USER} purged cache for the following development resources: \n ${params.urls}"

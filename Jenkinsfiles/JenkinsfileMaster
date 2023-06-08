@@ -13,10 +13,10 @@ node {
             string(name: "urls", value: "${URLS}"),
             string(name: "ENV", value: "${ENV}")
             ], wait: true
-            sh "${STATUS} = 200"
+            sh "${STATUS}= 200"
          } catch (Exception e) {
             sh "echo Error: ${e.message}"
-            sh "${STATUS} = 500"
+            sh "${STATUS}= 500"
         }
     }
 

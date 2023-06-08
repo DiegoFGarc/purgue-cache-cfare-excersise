@@ -12,10 +12,10 @@ node {
             string(name: "urls", value: "${URLS}"),
             string(name: "ENV", value: "${ENV}")
             ], wait: true
-            def STATUS == 200
+            def STATUS = 200
          } catch (Exception e) {
             sh "echo Error: ${e.message}"
-            def STATUS == 500
+            def STATUS = 500
         }
     }
 

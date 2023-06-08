@@ -3,6 +3,7 @@ node {
     stage('init') {
         env.ENVIRONMENT = params.ENV
         env.PURGE_CACHE_JOB = "purgue-cloudfare-cache"
+        env.STATUS = ""
         def URLS = params.urls
     }
 
@@ -12,10 +13,10 @@ node {
             string(name: "urls", value: "${URLS}"),
             string(name: "ENV", value: "${ENV}")
             ], wait: true
-            def env.STATUS = 200
+            sh "${STATUS} = 200"
          } catch (Exception e) {
             sh "echo Error: ${e.message}"
-            def env.STATUS = 500
+            sh "${STATUS} = 500"
         }
     }
 

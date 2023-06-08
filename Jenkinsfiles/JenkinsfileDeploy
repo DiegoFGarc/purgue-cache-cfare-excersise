@@ -77,7 +77,7 @@ node {
 
     stage('send_notification') {
         def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-        env.BUILD_USER = build_user.userName
+        env.BUILD_USER = build_user.userName[0]
         echo "${env.BUILD_USER} purged cache for the following development resources: \n ${params.urls}"
     }
 

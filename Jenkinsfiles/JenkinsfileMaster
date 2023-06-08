@@ -29,7 +29,7 @@ node {
     stage('validate_cache_purge') {
         if (status == 200) {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-            env.BUILD_USER = build_user.userName
+            env.BUILD_USER = build_user.userName[0]
             //slackSend color: 'good', channel: "#bots", message: "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
             echo "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
         } else {

@@ -9,8 +9,8 @@ node {
     stage('advising_flush') {
         def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
         env.BUILD_USER = build_user.userName
-        echo ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER[0]} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
-        //slackSend color: 'good', channel: "#bots", message: ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER[0]} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
+        echo ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
+        //slackSend color: 'good', channel: "#bots", message: ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
     }
 
     stage('flush_cache') {
@@ -30,8 +30,8 @@ node {
         if (status == 200) {
             def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
             env.BUILD_USER = build_user.userName
-            //slackSend color: 'good', channel: "#bots", message: "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER[0]}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
-            echo "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER[0]}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
+            //slackSend color: 'good', channel: "#bots", message: "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
+            echo "Execution ${BUILD_NUMBER} status - Successfully purged the resources defined by ${env.BUILD_USER}  :flecha_hacia_arriba:  :marca_de_verificación_blanca:"
         } else {
             //slackSend color: 'danger', channel: "#bots", message: "Execution ${BUILD_NUMBER} status - The resources purged by Diego Garcia :flecha_hacia_arriba: failed: REASON OF FAILURE :mastil_con_bandera_triangular:"
             echo "Execution ${BUILD_NUMBER} status - The resources purged by Diego Garcia :flecha_hacia_arriba: failed: REASON OF FAILURE :mastil_con_bandera_triangular:"

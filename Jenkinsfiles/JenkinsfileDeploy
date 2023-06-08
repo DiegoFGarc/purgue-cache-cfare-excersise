@@ -29,12 +29,13 @@ node {
     }
     */
 
-    /*
+    
     stage('advising_flush') {
         def build_user = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
         env.BUILD_USER = build_user.userName
-        slackSend color: 'good', message: ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
-    }*/
+        echo ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
+        //slackSend color: 'good', channel: "#bots", message: ":rocket: Execution ${BUILD_NUMBER} \n ${env.BUILD_USER} is purging the cache for the following ${ENVIRONMENT} resources: \n ${params.urls} \n The execution status will be notified below once the pipeline is completed "
+    }
     
     stage('validate_parameters') {
         def valuesText = params.urls

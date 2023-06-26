@@ -21,6 +21,7 @@ PurgeCache() {
       else
         echo "ERROR: There were some errors purging the cache:"
         echo "$response"
+        exit 1
       fi
     done
   }
